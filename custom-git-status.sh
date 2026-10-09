@@ -38,14 +38,16 @@ while IFS= read -r line; do
   fi
 done < <(git status --porcelain --untracked-files=all)
 
+echo
 echo "On branch: $branch ($sync)"
 echo
 if (( staged + unstaged + untracked + conflicts == 0 )); then
   echo "Working tree clean"
   exit 0
 fi
-echo "Changes to be committed:     $staged"
-echo "Changes not staged:          $unstaged"
-echo "Untracked files:             $untracked"
+echo "Staged:     $staged"
+echo "Unstaged:   $unstaged"
+echo "Untracked:  $untracked"
 (( conflicts > 0 )) && echo "Merge conflicts:             $conflicts"
+echo
 exit 0
